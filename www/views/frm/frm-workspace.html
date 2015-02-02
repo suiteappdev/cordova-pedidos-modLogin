@@ -1,0 +1,108 @@
+<section id="workspace" data-transition="cover">
+    <header data-title="carrito de compras">
+        <nav class="on-right">
+            <a href="#" data-icon="bolt" data-view-article="page-8"></a>
+        </nav>
+        <nav class="on-left">
+            <a href="#" data-icon="arrow-left" data-workspaceBack="true"></a>
+        </nav>
+    </header>
+    <nav data-control="groupbar" id="toolbar">
+        <a href="#" data-icon="inbox" data-label="productos" data-view-article="page-2" data-title="Productos"></a>
+        <a href="#" data-icon="shopping-cart" data-label="carrito" data-view-article="page-3" data-title="carrito" data-count="0"></a>
+        <a href="#" data-icon="heart" data-label="mis pedidos" data-view-article="page-5" data-title="mis pedidos"></a>
+    </nav>
+    <header id="todo-header" style="height:47px!important;">
+        <div class="form">
+            <fieldset style="background:#F00C37!important;">
+                 <a href="#" id="btn-todo"  class="todobtn button anchor "> Mostrar Todos </a>
+            </fieldset>
+        </div>
+    </header>   
+    <article id="page-1" class="list bg">
+    </article>
+    <article id="page-2" class="list scroll active bg">
+        <div class="colset-1" id="categorylist"> 
+        </div>
+        <div class="colset-1" id="product_list">
+        </div>
+    </article>
+    <article id="page-3" class="scroll bg">
+        <ul class="productList">
+        </ul>
+    </article>
+    <article id="page-5" class="scroll list bg">
+        <ul id="requestList">
+        </ul>
+    </article>
+    <article id="page-6" class="scroll list bg">
+        <ul id="LinesList">
+        </ul>
+    </article>
+    <article id="page-8" id="frm-pedido"class="scroll list bg">
+        <header>
+            <div class="form">
+                <fieldset>
+                <a href="#" id="cmdBuscar"><span class="icon search"></span></a>
+                    <input type="text" id="txtcliente" placeholder="Buscar cliente">
+                </fieldset>
+            </div>
+        </header>
+        <ul id="clientList" >
+        </ul>
+        <div class="form" id="form-pedidos-fields" style="display:none;">
+            <fieldset>
+                <label class="labelPedido">informacion del cliente</span></label>
+                <label>Nombre</label>
+                <input type="text"  id="txtNombre" placeholder="cliente" class="align_right border text align_right" readonly>
+                <label>Tel.</label>
+                <input type="text"  id="txtTelefono" placeholder="telefono" class="border text align_right" readonly>
+                <label>Nit.</label>
+                <input type="text"  id="txtNit" placeholder="Nit" class="border text align_right" readonly>
+                <label>Ubicación</label>
+                <input type="text"  id="txtUbicacion" placeholder="Ubicacion" class="border text align_right" readonly>
+                <label>Unidades</label>
+                <input type="text"  id="txtUtotal" placeholder="U. Totales" class="border text align_right" readonly>
+                <label class="labelPedido">Descuento del <span id="dtoValue1"></span></label>
+                <input type="text" style="width:100%!important;"  id="txtDsto1"  placeholder="Subtotal" class="border text align_right" readonly>
+                <label class="labelPedido">Descuento del <span id="dtoValue2"></span></label>
+                <input type="text" style="width:100%!important;"  id="txtDsto2"  placeholder="Subtotal" class="border text align_right" readonly>
+                <label class="labelPedido">Descuento del <span id="dtoValue3"></span></label>
+                <input type="text" style="width:100%!important;"  id="txtDsto3"  placeholder="Subtotal" class="border text align_right" readonly>
+                <label class="labelPedido">Detalle Iva</label>
+                <table id="tblBaseImp">
+                    <thead>
+                        <tr>
+                            <td>Tipo</td>
+                            <td>Base/Imp</td>
+                            <td>Valor</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td></td><td></td></tr>
+                        <tr><td>5</td><td></td><td></td></tr>
+                        <tr><td>16</td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                <label>SubTotal</label>
+                <input type="text"  id="txtStotal"  placeholder="Subtotal" class="border text align_right" readonly>
+                <label>Iva</label>                
+                <input type="text"  id="txtIva" value="0" placeholder="Iva" class="border text align_right" readonly>
+                <label>Descuento</label>                
+                <input type="text"  id="txtDcto" value="0" placeholder="Descuento" class="border text align_right" readonly>
+                <label>Total</label>
+                <input type="text"  id="txtTotal" placeholder="Total" class="success border text align_right" readonly>
+                <label>Mustras</label>
+                <input type="text"  id="txtTmuestras" value="0" placeholder="T. Muestras" class="border text align_right" readonly>
+                <textarea id="txtObservacion" placeholder="Observacion..." class="border text"></textarea>
+                 <a href="#" id="cmdSave" class="button color anchor accept margin-bottom" data-icon="ok">Enviar</a>            
+            </fieldset>
+
+        </div>
+    </article>
+    <footer>
+        <nav>
+            <a href="#" data-icon="off" class="close_app"></a>
+        </nav>
+    </footer>
+</section>

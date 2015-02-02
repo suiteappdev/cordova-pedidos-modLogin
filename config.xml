@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.suiteapp.ecommerce" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+	<preference name="SplashScreen" value="screen" />  
+	<preference name="SplashScreenDelay" value="10000" /> 
+    <name>Ecommerce</name>
+    <description>
+        Aplicacion para la gestion rapida de pedidos.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Equipo suiteapp.net
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

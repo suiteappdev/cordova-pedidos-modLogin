@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html lang="es">
+    <head>
+    <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="components/lungo/lungo.css" />
+        <link rel="stylesheet" type="text/css" href="css/app.css" />
+        <link rel="stylesheet" type="text/css" href="css/animate.css" />
+        <link rel="stylesheet" type="text/css" href="components/lungo/lungo.icon.css" />
+        <link rel="stylesheet" type="text/css" href="components/lungo/lungo.theme.css" />
+        <title>Ecommerce Pedidos</title>
+    </head>
+    <body class="bg">
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="entities/producto.js"></script>
+        <script type="text/javascript" src="entities/carro.js"></script>
+        <script type="text/javascript" src="entities/dialogo.js"></script>
+        <script type="text/javascript" src="entities/usuario.js"></script>
+        <script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="entities/pedido.js"></script>
+        <script type="text/javascript" src="entities/options.js"></script>
+        <script type="text/javascript" src="entities/cliente.js"></script>
+        <script type="text/javascript" src="entities/referencia.js"></script>
+        <script type="text/javascript" src="entities/geo.js"></script>
+        <script type="text/javascript" src="entities/config.js"></script>
+        <script type="text/javascript" src="entities/lineas.js"></script>
+        <script type="text/javascript" src="entities/familia_1.js"></script>
+        <script type="text/javascript" src="entities/categoria.js"></script>
+        <script type="text/javascript" src="entities/url.js"></script>
+        <script type="text/javascript" src="entities/history.js"></script>
+        <script type="text/javascript" src="entities/auth.js"></script>
+        <script src="components/quojs/quo.js"></script>
+        <script src="components/touchSwipe.js"></script>
+        <script src="components/accounting.js"></script>
+        <script src="components/lungo/lungo.js"></script>
+        <script type="text/javascript">
+        document.addEventListener("deviceready", function(){
+            navigator.splashscreen.hide();
+        }, false);
+
+            app.initialize();
+            Lungo.init({
+                resources: [
+                    'views/frm/frm-login.html',
+                    'views/frm/frm-workspace.html'
+                    ]
+                }
+                );
+
+          Lungo.ready(function(){
+            var line = null;
+            
+            usuario.checkSession().success(function(data){
+                if(data.session){
+                    usuario.info.identificacion = data.identificacion;
+                    lineas.ObtenerLineas();
+                    return;
+                }
+            });
+
+            _todoHeader = $('#todo-header');
+               Lungo.dom('#frm-login').on('load', function(){
+                    if(usuario.conectado){
+                        $(this).find('#sessionDestroy').show();
+                        $(this).find('#txtUser').hide();
+                        $(this).find('#txtPassword').hide();
+                        $(this).find('.success').hide();
+                        $(this).find('#btn-cancel').hide();
+                        $(this).find('nav').html('<a href="#" data-view-section="workspace" data-icon="home"><span class="icon home"></span></a>');
+                    }else{
+                        $(this).find('#sessionDestroy').hide();
+                        $(this).find('#txtUser').show().val('');
+                        $(this).find('#txtPassword').show().val('');
+                        $(this).find('.success').show();
+                        $(this).find('#btn-cancel').show();
+                        $(this).find('nav').html('<a href="#" data-view-section="frm-home" data-icon="home"><span class="icon home"></span></a>'); 
+                    }
+               });
+
+                Lungo.dom('#page-3').on('load', function(){
+                    $('#todo-header').css('display', 'none');
+                    shoppingcart.mostrar(shoppingcart.stack);
+                    shoppingcart.bindUI();
+                });
+
+                Lungo.dom('#workspace').on('load', function(){
+                    categoria.obtenerFamilia1();
+                    history.bindEvent();
+                    cliente.bindEvent();
+                });
+
+
+                Lungo.dom('#page-2').on('load', function(){
+                    if(lineas.miLinea == null){
+                        navigator.notification.alert(
+                            'debe elegir su linea de precio!',  // message
+                            function(){
+                                Lungo.Router.article('workspace', 'page-6');
+                            },       
+                            'Sin Linea',            // title
+                            'Ok'                  // buttonName
+                            );
+                        return;
+                    }
+
+                    $('#todo-header').show();
+                    $('#toolbar').show();
+                });
+
+                Lungo.dom('#frm-request').on('load', function(){
+                    if(shoppingcart.stack.length == 0){
+                        navigator.notification.alert(
+                            'debe agregar productos a su pedido!',  // message
+                            function(){
+                                Lungo.Router.article('workspace', 'page-2');
+                            },       
+                            '0 productos',            // title
+                            'Ok'                  // buttonName
+                            );      
+                    }
+
+                    pedido.ObtenerResumen();
+                    pedido.bindEvent();
+                });
+
+                Lungo.dom('#page-5').on('load', function(){
+                    $('#todo-header').css('display', 'none');
+                    pedido.obtenerPedidos({idvendedor:usuario.info.identificacion});
+                });
+
+                Lungo.dom('#page-6').on('load', function(){
+                    $('#todo-header').css('display', 'none');
+                });
+
+                Lungo.dom('#page-8').on('load', function(){
+                    $('#toolbar').hide();
+                    $('#todo-header').hide(); 
+                     
+                    pedido.bindEvent();
+                    if(lineas.miLinea == null){
+                        navigator.notification.alert(
+                            'debe elegir su linea de precio!',  // message
+                            function(){
+                                Lungo.Router.article('workspace', 'page-6');
+                            },       
+                            'Sin Linea',            // title
+                            'Ok'                  // buttonName
+                            );
+                        return;
+                    }
+
+                    if(shoppingcart.stack.length == 0){
+                        navigator.notification.alert(
+                            'debe agregar productos a su pedido!',  // message
+                            function(){
+                                Lungo.Router.article('workspace', 'page-2');
+                            },       
+                            '0 productos',            // title
+                            'Ok'                  // buttonName
+                            ); 
+                        
+                             return;
+                    }else{
+                        history.stack.push({
+                            fn:function(){
+                                Lungo.Router.article('workspace', 'page-2');
+                            }
+                        });
+                    }
+
+                });
+
+                Lungo.dom('#page-7').on('load', function(){
+                    pedido.bindEvent();
+                    $('#toolbar').css('display', 'none');
+                    $(this).off().on('unload', function(){
+                        $('#toolbar').show();
+                    })
+                });
+
+            });
+        </script>
+    </body>
+</html>

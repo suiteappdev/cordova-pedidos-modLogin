@@ -1,0 +1,12 @@
+var UrlCollection = {};
+UrlCollection.AUTH = config.BASEPATH+'usuario/userAuth?callback=?';
+UrlCollection.CLOSESESSION = config.BASEPATH+'usuario/close?callback=?';
+UrlCollection.CHECKSESSION = config.BASEPATH+'usuario/checksession?callback=?';
+UrlCollection.PRODUCTOS = config.BASEPATH+'producto?callback=?';
+UrlCollection.PRODUCTOS_CATEGORIAS = config.BASEPATH+'producto/ObtenerProductosCategorias?callback=?';
+UrlCollection.PRODUCTOS_TODO = config.BASEPATH+'producto/ObtenerTodo?callback=?';
+UrlCollection.ENVIAR_PEDIDO = config.BASEPATH+'pedido/enviar';
+UrlCollection.OBTENER_LINEAS = config.BASEPATH+'producto/ObtenerLineas?callback=?';
+UrlCollection.BUSCAR_CLIENTES = config.BASEPATH+'cliente/buscarCliente?callback=?';
+UrlCollection.MIS_PEDIDOS = config.BASEPATH+'pedido/ObtenerPedidos?callback=?';
+UrlCollection.REFERENCIAS = config.BASEPATH+'referencia?callback=?';
